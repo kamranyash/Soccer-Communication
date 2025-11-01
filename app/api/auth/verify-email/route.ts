@@ -27,7 +27,7 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    return NextResponse.redirect(new URL('/auth/email-verified', req.url));
+    return NextResponse.redirect(new URL('/auth/verified', req.url));
   } catch (error: any) {
     console.error('Verification error:', error);
     return NextResponse.json(
