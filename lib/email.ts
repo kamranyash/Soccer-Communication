@@ -2,6 +2,26 @@ import { prisma } from './db';
 import crypto from 'crypto';
 import { Resend } from 'resend';
 
+export async function generateVerificationToken(userId: string) {
+  const token = crypto.randomBytes(32).toString('hex');
+  const expires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
+
+  // Delete any existing tokens for this user
+  await prisma.verificationToken.deleteMany({ where: { userId } });
+
+  // Create new token
+  await prisma.verificationToken.create({
+    data: {
+      identifier: userId,
+      token,
+      expires,
+      userId,
+    },
+  });
+
+  return token;
+}
+
 export async function sendVerificationEmail(email: string, token: string) {
   const verificationUrl = `${process.env.NEXTAUTH_URL}/auth/verify-email?token=${token}`;
 
