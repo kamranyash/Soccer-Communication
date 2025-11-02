@@ -76,3 +76,34 @@ export async function sendVerificationEmail(email: string, token: string) {
     throw error;
   }
 }
+
+export async function verifyToken(token: string) {
+  const verificationToken = await prisma.verificationToken.findUnique({
+    where: { token },
+    include: { user: true },
+  });
+
+  if (!verificationToken) {
+    return null;
+  }
+
+  if (verificationToken.expires < new Date()) {
+    await prisma.verificationToken.delete({
+      where: { token: verificationToken.token },
+    });
+    return null;
+  }
+
+  // Update user emailVerified
+  await prisma.user.update({
+    where: { id: verificationToken.userId },
+    data: { emailVerified: new Date() },
+  });
+
+  // Remove the used verification token
+  await prisma.verificationToken.delete({
+    where: { token },
+  });
+
+  return verificationToken.user;
+}

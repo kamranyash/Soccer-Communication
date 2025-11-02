@@ -13,8 +13,7 @@ export default function VerifyEmailSentPage() {
               Check Your Email
             </h2>
             <p className="text-gray-600">
-              We've sent a verification link to your email address. Please click
-              the link to verify your account.
+              We&apos;ve sent a verification link to your email address. Please click the link to verify your account.
             </p>
           </div>
           <div className="mt-6">
