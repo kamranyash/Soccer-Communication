@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Navbar from '@/components/Navbar';
-import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline'; // Add this for eye icons if you have heroicons installed
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -120,7 +120,7 @@ export default function SignUpPage() {
                   aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? (
-                    <EyeOffIcon className="h-5 w-5" />
+                    <EyeSlashIcon className="h-5 w-5" />
                   ) : (
                     <EyeIcon className="h-5 w-5" />
                   )}
@@ -150,7 +150,7 @@ export default function SignUpPage() {
                   aria-label={showConfirmPassword ? "Hide password" : "Show password"}
                 >
                   {showConfirmPassword ? (
-                    <EyeOffIcon className="h-5 w-5" />
+                    <EyeSlashIcon className="h-5 w-5" />
                   ) : (
                     <EyeIcon className="h-5 w-5" />
                   )}
