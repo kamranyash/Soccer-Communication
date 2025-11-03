@@ -8,7 +8,7 @@ import Navbar from '@/components/Navbar';
 
 export default function CoachProfilePage() {
   const params = useParams();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const userId = params.userId as string;
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -32,7 +32,7 @@ export default function CoachProfilePage() {
   };
 
   const handleMessage = async () => {
-    if (!session) {
+    if (status === 'unauthenticated') {
       window.location.href = '/auth/signin';
       return;
     }
