@@ -47,6 +47,9 @@ export default function CoachProfilePage() {
       if (res.ok) {
         const conversation = await res.json();
         window.location.href = `/messages/${conversation.id}`;
+      } else {
+        const data = await res.json();
+        alert(data.error || 'Failed to start conversation');
       }
     } catch (error) {
       console.error('Error creating conversation:', error);
