@@ -23,7 +23,7 @@ export async function generateVerificationToken(userId: string) {
 }
 
 export async function sendVerificationEmail(email: string, token: string) {
-  const verificationUrl = `https://soccer-communication-o5vf.vercel.app/auth/verify-email?token=${token}`;
+  const verificationUrl = `https://soccer-communication-o5vf.vercel.app/api/auth/verify-email?token=${token}`;
 
   console.log('[verify] sendVerificationEmail called', {
     email,
