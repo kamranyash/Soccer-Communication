@@ -31,8 +31,8 @@ export default function PlayerProfilePage() {
   };
 
   const handleMessage = async () => {
-    if (status === 'unauthenticated') {
-      window.location.href = '/auth/signin';
+    if (status !== 'authenticated') {
+      alert('Please sign in first.');
       return;
     }
 
