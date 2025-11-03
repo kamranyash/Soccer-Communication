@@ -15,6 +15,7 @@ export default function VerifyEmailSentPage() {
             <p className="text-gray-600">
               We&apos;ve sent a verification link to your email address. Please click the link to verify your account.
             </p>
+            <p className="text-xs text-red-600 mt-2">If you don&apos;t see the email, please check your spam or junk folder.</p>
           </div>
           <div className="mt-6">
             <Link href="/auth/signin" className="btn-primary">
