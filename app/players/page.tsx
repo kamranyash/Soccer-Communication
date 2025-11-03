@@ -135,9 +135,9 @@ export default function PlayersPage() {
                   className="card hover:shadow-lg transition-shadow"
                 >
                   <div className="flex items-center gap-4">
-                    {player.media && player.media[0] && (
+                    {(player.photoUrl || (player.media && player.media[0])) && (
                       <img
-                        src={player.media[0].url}
+                        src={player.photoUrl || player.media[0].url}
                         alt={player.firstName}
                         className="w-16 h-16 rounded-full object-cover"
                       />

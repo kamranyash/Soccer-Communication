@@ -112,9 +112,9 @@ export default function CoachesPage() {
                   className="card hover:shadow-lg transition-shadow"
                 >
                   <div className="flex items-center gap-4">
-                    {coach.media && coach.media[0] && (
+                    {(coach.photoUrl || (coach.media && coach.media[0])) && (
                       <img
-                        src={coach.media[0].url}
+                        src={coach.photoUrl || coach.media[0].url}
                         alt={coach.firstName}
                         className="w-16 h-16 rounded-full object-cover"
                       />

@@ -80,9 +80,18 @@ export default function ProfilePage() {
               <div className="space-y-4">
                 {isPlayer && (
                   <>
+                    {profile.photoUrl && (
+                      <img
+                        src={profile.photoUrl}
+                        alt="Profile Photo"
+                        className="h-24 w-24 rounded-full object-cover mb-4"
+                      />
+                    )}
                     <div>
                       <h3 className="font-semibold">Name</h3>
-                      <p>{profile.firstName} {profile.lastName}</p>
+                      <p>
+                        {profile.firstName} {profile.lastName}
+                      </p>
                     </div>
                     <div>
                       <h3 className="font-semibold">Team</h3>
