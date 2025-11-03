@@ -67,6 +67,36 @@ export default function EditProfilePage() {
             <h1 className="text-2xl font-bold mb-6">Edit Profile</h1>
 
             <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Profile Photo */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Profile Photo
+                </label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={async (e) => {
+                    if (!e.target.files?.[0]) return;
+                    const form = new FormData();
+                    form.append('file', e.target.files[0]);
+
+                    const res = await fetch('/api/upload/profile-photo', {
+                      method: 'POST',
+                      body: form,
+                    });
+                    if (res.ok) {
+                      const { url } = await res.json();
+                      setFormData({ ...formData, photoUrl: url });
+                    }
+                  }}
+                />
+                {formData.photoUrl && (
+                  <img
+                    src={formData.photoUrl}
+                    className="h-24 w-24 rounded-full object-cover mt-2"
+                  />
+                )}
+              </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">

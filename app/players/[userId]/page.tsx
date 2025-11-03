@@ -82,14 +82,23 @@ export default function PlayerProfilePage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="card mb-6">
             <div className="flex items-start justify-between mb-6">
-              <div>
-                <h1 className="text-3xl font-bold mb-2">
-                  {profile.firstName} {profile.lastName}
-                </h1>
-                <p className="text-gray-600 text-lg">{profile.team}</p>
-                <p className="text-gray-500">
-                  {profile.position} • {profile.ageGroup} • {profile.level}
-                </p>
+              <div className="flex gap-4">
+                {profile.photoUrl && (
+                  <img
+                    src={profile.photoUrl}
+                    alt={`${profile.firstName} ${profile.lastName}`}
+                    className="h-20 w-20 rounded-full object-cover"
+                  />
+                )}
+                <div>
+                  <h1 className="text-3xl font-bold mb-2">
+                    {profile.firstName} {profile.lastName}
+                  </h1>
+                  <p className="text-gray-600 text-lg">{profile.team}</p>
+                  <p className="text-gray-500">
+                    {profile.position} • {profile.ageGroup} • {profile.level}
+                  </p>
+                </div>
               </div>
               {session && session.user.id !== userId && (
                 <button onClick={handleMessage} className="btn-primary">

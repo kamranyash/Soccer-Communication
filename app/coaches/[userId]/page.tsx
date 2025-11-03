@@ -82,7 +82,15 @@ export default function CoachProfilePage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="card mb-6">
             <div className="flex items-start justify-between mb-6">
-              <div>
+              <div className="flex gap-4">
+                {profile.photoUrl && (
+                  <img
+                    src={profile.photoUrl}
+                    alt={`${profile.firstName} ${profile.lastName}`}
+                    className="h-20 w-20 rounded-full object-cover"
+                  />
+                )}
+                <div>
                 <h1 className="text-3xl font-bold mb-2">
                   {profile.firstName} {profile.lastName}
                 </h1>
@@ -93,6 +101,7 @@ export default function CoachProfilePage() {
                 {profile.record && (
                   <p className="text-gray-500">Record: {profile.record}</p>
                 )}
+                </div>
               </div>
               {session && session.user.id !== userId && (
                 <button onClick={handleMessage} className="btn-primary">
