@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const CANONICAL_HOST = 'soccer-communication.vercel.app'; // TODO: replace with your custom domain if set
+const CANONICAL_HOST = 'soccer-communication-o5vf.vercel.app';
 
 const nextConfig = {
   eslint: {
