@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const CANONICAL_HOST = 'soccer-communication-o5vf.vercel.app';
+const CANONICAL_HOST = 'socal-or.org';
 
 const nextConfig = {
   eslint: {
@@ -15,7 +15,7 @@ const nextConfig = {
         has: [
           {
             type: 'host',
-            value: '(.*)-[a-z0-9]+\\.vercel\\.app',
+            value: '(.*)-[a-z0-9]+\\.vercel\\.app', // preview deployments
           },
         ],
         destination: `https://${CANONICAL_HOST}/:path*`,
