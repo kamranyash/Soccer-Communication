@@ -36,7 +36,9 @@ export default function Navbar() {
                 <Link href="/messages" className="relative text-gray-700 hover:text-socal-blue">
                   Messages
                   {unread > 0 && (
-                    <span className="absolute -top-1 -right-3 h-2 w-2 rounded-full bg-red-500"></span>
+                    <span className="absolute -top-1 -right-4 min-w-[16px] px-1 h-4 text-[10px] flex items-center justify-center rounded-full bg-red-500 text-white">
+                      {unread}
+                    </span>
                   )}
                 </Link>
                 <Link href="/profile" className="text-gray-700 hover:text-socal-blue">
