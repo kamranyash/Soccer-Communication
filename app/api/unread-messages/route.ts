@@ -9,14 +9,22 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ count: 0 }, { status: 401 });
   }
 
-  // simple unread: conversations where lastReadAt is null
-  const count = await prisma.conversationParticipant.count({
-    where: {
-      userId: session.user.id,
-      isBlocked: false,
-      lastReadAt: null,
+  const participants = await prisma.conversationParticipant.findMany({
+    where: { userId: session.user.id, isBlocked: false },
+    select: {
+      lastReadAt: true,
+      conversation: {
+        select: {
+          updatedAt: true,
+        },
+      },
     },
   });
 
-  return NextResponse.json({ count });
+  const unread = participants.filter((p) => {
+    if (!p.lastReadAt) return true;
+    return p.conversation.updatedAt > p.lastReadAt;
+  }).length;
+
+  return NextResponse.json({ count: unread });
 }
