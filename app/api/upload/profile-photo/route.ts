@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
-    const uploadRes = await new Promise<cloudinary.UploadApiResponse>((resolve, reject) => {
+    const uploadRes = await new Promise<any>((resolve, reject) => {
       const stream = cloudinary.uploader.upload_stream(
         {
           folder: 'profile-photos',
