@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import Navbar from '@/components/Navbar';
 
@@ -11,6 +11,7 @@ export default function PlayerProfilePage() {
   const userId = params.userId as string;
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     fetchProfile();
@@ -36,7 +37,6 @@ export default function PlayerProfilePage() {
       return;
     }
 
-    // Create or get conversation
     try {
       const res = await fetch('/api/conversations', {
         method: 'POST',
@@ -46,15 +46,26 @@ export default function PlayerProfilePage() {
 
       if (res.ok) {
         const conversation = await res.json();
-        window.location.href = `/messages/${conversation.id}`;
+        router.push(`/messages/${conversation.id}`);
       } else {
-        const data = await res.json();
-        alert(data.error || 'Failed to start conversation');
+        const { error } = await res.json();
+        alert(error || 'Failed to start conversation');
       }
-    } catch (error) {
-      console.error('Error creating conversation:', error);
+    } catch (err) {
+      alert('Network error');
     }
   };
+
+  if (status === 'unauthenticated') {
+    return (
+      <>
+        <Navbar />
+        <main className="min-h-screen flex items-center justify-center">
+          <div>Please sign in to view this page.</div>
+        </main>
+      </>
+    );
+  }
 
   if (loading) {
     return (
