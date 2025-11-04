@@ -2,9 +2,11 @@
 
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
+import useUnread from '@/hooks/useUnread';
 
 export default function Navbar() {
   const { data: session, status } = useSession();
+  const unread = useUnread();
 
   return (
     <nav className="bg-white shadow-md border-b border-gray-200">
@@ -31,8 +33,11 @@ export default function Navbar() {
               <div className="animate-pulse">...</div>
             ) : session ? (
               <>
-                <Link href="/messages" className="text-gray-700 hover:text-socal-blue">
+                <Link href="/messages" className="relative text-gray-700 hover:text-socal-blue">
                   Messages
+                  {unread > 0 && (
+                    <span className="absolute -top-1 -right-3 h-2 w-2 rounded-full bg-red-500"></span>
+                  )}
                 </Link>
                 <Link href="/profile" className="text-gray-700 hover:text-socal-blue">
                   Profile
