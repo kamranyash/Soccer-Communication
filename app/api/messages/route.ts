@@ -6,6 +6,7 @@ import { prisma } from '@/lib/db';
 export async function GET(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
+    console.log('[messages GET] session =', JSON.stringify(session));
     if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -83,6 +84,7 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
+    console.log('[messages POST] session =', JSON.stringify(session));
     if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }

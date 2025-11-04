@@ -44,29 +44,40 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+  session: {
+    strategy: 'jwt',
+  },
+  cookies: {
+    sessionToken: {
+      name: '__Secure-next-auth.session-token',
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: process.env.NODE_ENV === 'production',
+      },
+    },
+  },
   callbacks: {
     async session({ session, user, token }) {
       // For database sessions
       if (user && session.user) {
         (session.user as any).id = user.id;
-        (session.user as any).emailVerified = user.emailVerified;
+        (session.user as any).emailVerified = (user as any).emailVerified;
       }
 
       // For JWT sessions
       if (token && session.user) {
-        // @ts-ignore
-        (session.user as any).id = token.id;
-        // @ts-ignore
-        (session.user as any).emailVerified = token.emailVerified;
+        (session.user as any).id = (token as any).id;
+        (session.user as any).emailVerified = (token as any).emailVerified;
       }
 
       return session;
     },
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id;
-        // @ts-ignore
-        token.emailVerified = user.emailVerified;
+        (token as any).id = user.id;
+        (token as any).emailVerified = (user as any).emailVerified;
       }
       return token;
     },
@@ -75,20 +86,6 @@ export const authOptions: NextAuthOptions = {
     signIn: '/auth/signin',
     signOut: '/auth/signout',
     error: '/auth/error',
-  },
-  session: {
-    strategy: 'jwt',
-  },
-  cookies: {
-    sessionToken: {
-      name: `__Secure-next-auth.session-token`,
-      options: {
-        httpOnly: true,
-        sameSite: 'lax',
-        path: '/',
-        secure: process.env.NODE_ENV === 'production',
-      },
-    },
   },
   secret: process.env.NEXTAUTH_SECRET,
 };
