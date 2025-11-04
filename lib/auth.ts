@@ -68,6 +68,9 @@ export const authOptions: NextAuthOptions = {
   },
   session: {
     strategy: 'jwt',
+    cookie: {
+      secure: process.env.NODE_ENV === 'production',
+    },
   },
   secret: process.env.NEXTAUTH_SECRET,
 };
