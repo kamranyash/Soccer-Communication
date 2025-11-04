@@ -9,28 +9,14 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ count: 0 }, { status: 401 });
   }
 
-  // count conversations where there exists a message newer than lastReadAt
-  const result = await prisma.conversationParticipant.count({
+  // simple unread: conversations where lastReadAt is null
+  const count = await prisma.conversationParticipant.count({
     where: {
       userId: session.user.id,
       isBlocked: false,
-      conversation: {
-        messages: {
-          some: {},
-        },
-      },
-      OR: [
-        { lastReadAt: null },
-        {
-          conversation: {
-            updatedAt: {
-              gt: new Date(Date.now()), // placeholder, Prisma can't compare across relations easily
-            },
-          },
-        },
-      ],
+      lastReadAt: null,
     },
   });
 
-  return NextResponse.json({ count: result });
+  return NextResponse.json({ count });
 }
