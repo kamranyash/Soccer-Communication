@@ -156,16 +156,26 @@ export default function EditProfilePage() {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Level (e.g., ECNL, MLS Next, E64, NPL, AYSO)
+                      Level
                     </label>
-                    <input
-                      type="text"
+                    <select
                       className="input-field"
                       value={formData.level || ''}
                       onChange={(e) =>
                         setFormData({ ...formData, level: e.target.value })
                       }
-                    />
+                    >
+                      <option value="">Select Level</option>
+                      <option value="ECNL">ECNL</option>
+                      <option value="ECRL">ECRL</option>
+                      <option value="MLS Next">MLS Next</option>
+                      <option value="E64">E64</option>
+                      <option value="NPL">NPL</option>
+                      <option value="AYSO">AYSO</option>
+                      <option value="USYS">USYS</option>
+                      <option value="SCDSL">SCDSL</option>
+                      <option value="Coast Soccer">Coast Soccer</option>
+                    </select>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -213,14 +223,24 @@ export default function EditProfilePage() {
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Level
                     </label>
-                    <input
-                      type="text"
+                    <select
                       className="input-field"
                       value={formData.level || ''}
                       onChange={(e) =>
                         setFormData({ ...formData, level: e.target.value })
                       }
-                    />
+                    >
+                      <option value="">Select Level</option>
+                      <option value="ECNL">ECNL</option>
+                      <option value="ECRL">ECRL</option>
+                      <option value="MLS Next">MLS Next</option>
+                      <option value="E64">E64</option>
+                      <option value="NPL">NPL</option>
+                      <option value="AYSO">AYSO</option>
+                      <option value="USYS">USYS</option>
+                      <option value="SCDSL">SCDSL</option>
+                      <option value="Coast Soccer">Coast Soccer</option>
+                    </select>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">

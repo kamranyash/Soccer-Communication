@@ -107,3 +107,49 @@ export async function verifyToken(token: string) {
 
   return verificationToken.user;
 }
+
+export async function sendPasswordResetEmail(email: string, resetUrl: string) {
+  if (!process.env.RESEND_API_KEY) {
+    console.error('[reset] Missing RESEND_API_KEY');
+    throw new Error('Email disabled: missing RESEND_API_KEY');
+  }
+  if (!process.env.EMAIL_FROM) {
+    console.error('[reset] Missing EMAIL_FROM');
+    throw new Error('Email disabled: missing EMAIL_FROM');
+  }
+
+  const resend = new Resend(process.env.RESEND_API_KEY);
+
+  try {
+    const result = await resend.emails.send({
+      from: process.env.EMAIL_FROM!,
+      to: email,
+      subject: 'Reset your password - SoCal OpenRoster',
+      html: `
+        <div style="font-family: Arial, sans-serif; line-height: 1.5;">
+          <h2>Reset your password</h2>
+          <p>You requested to reset your password for SoCal OpenRoster. Click the button below to set a new password.</p>
+          <p>
+            <a href="${resetUrl}" style="display:inline-block;background:#1A56DB;color:#fff;padding:10px 16px;border-radius:6px;text-decoration:none;">
+              Reset Password
+            </a>
+          </p>
+          <p>Or copy and paste this link into your browser:<br>
+          <a href="${resetUrl}">${resetUrl}</a></p>
+          <p style="color:#666;font-size:12px;margin-top:20px;">This link will expire in 1 hour. If you didn't request this, you can safely ignore this email.</p>
+        </div>
+      `,
+    });
+
+    console.log('[reset] Resend response', result);
+    return result;
+  } catch (error: any) {
+    console.error('[reset] Error sending password reset email', {
+      message: error?.message,
+      name: error?.name,
+      status: error?.status,
+      body: error?.response?.data || error
+    });
+    throw error;
+  }
+}

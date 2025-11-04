@@ -93,6 +93,11 @@ export default function SignInPage() {
                   setFormData({ ...formData, password: e.target.value })
                 }
               />
+              <div className="mt-1 text-right">
+                <Link href="/auth/forgot-password" className="text-sm text-socal-blue hover:underline">
+                  Forgot password?
+                </Link>
+              </div>
             </div>
 
             <div>
