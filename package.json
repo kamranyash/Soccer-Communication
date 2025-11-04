@@ -32,6 +32,7 @@
     "react-hook-form": "^7.53.1",
     "resend": "^3.3.0",
     "cloudinary": "^2.2.0",
+    "swr": "^2.2.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
