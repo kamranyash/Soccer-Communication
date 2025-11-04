@@ -1,10 +1,101 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
+
+function DeleteAccountButton() {
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [confirmText, setConfirmText] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const router = useRouter();
+
+  const handleDelete = async () => {
+    if (confirmText !== 'DELETE') {
+      setError('Please type "DELETE" to confirm');
+      return;
+    }
+
+    setLoading(true);
+    setError('');
+
+    try {
+      const res = await fetch('/api/profile/delete', {
+        method: 'DELETE',
+      });
+
+      if (res.ok) {
+        // Sign out and redirect
+        await signOut({ redirect: false });
+        router.push('/?deleted=true');
+      } else {
+        const data = await res.json();
+        setError(data.error || 'Failed to delete account');
+      }
+    } catch (err) {
+      setError('An error occurred. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (!showConfirm) {
+    return (
+      <button
+        onClick={() => setShowConfirm(true)}
+        className="btn-outline text-red-600 border-red-300 hover:bg-red-50"
+      >
+        Delete My Account
+      </button>
+    );
+  }
+
+  return (
+    <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+      <p className="text-sm font-semibold text-red-800 mb-2">
+        Are you absolutely sure?
+      </p>
+      <p className="text-sm text-red-700 mb-4">
+        This action cannot be undone. Type <strong>DELETE</strong> to confirm:
+      </p>
+      <input
+        type="text"
+        value={confirmText}
+        onChange={(e) => setConfirmText(e.target.value)}
+        placeholder="Type DELETE to confirm"
+        className="input-field mb-3"
+      />
+      {error && (
+        <div className="bg-red-100 border border-red-300 text-red-700 px-3 py-2 rounded mb-3 text-sm">
+          {error}
+        </div>
+      )}
+      <div className="flex gap-3">
+        <button
+          onClick={handleDelete}
+          disabled={loading || confirmText !== 'DELETE'}
+          className="btn-primary bg-red-600 hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {loading ? 'Deleting...' : 'Yes, Delete My Account'}
+        </button>
+        <button
+          onClick={() => {
+            setShowConfirm(false);
+            setConfirmText('');
+            setError('');
+          }}
+          disabled={loading}
+          className="btn-outline"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export default function ProfilePage() {
   const { data: session, status } = useSession();
@@ -70,10 +161,19 @@ export default function ProfilePage() {
               </div>
             )}
 
-            <div className="mb-4">
+            <div className="mb-4 flex gap-4">
               <Link href={`/profile/edit`} className="btn-primary">
                 Edit Profile
               </Link>
+            </div>
+
+            {/* Delete Account Section */}
+            <div className="mt-8 pt-6 border-t border-gray-200">
+              <h2 className="text-xl font-semibold text-red-600 mb-2">Danger Zone</h2>
+              <p className="text-sm text-gray-600 mb-4">
+                Once you delete your account, there is no going back. All your data, including your profile, messages, and posts will be permanently deleted.
+              </p>
+              <DeleteAccountButton />
             </div>
 
             {profile && (
