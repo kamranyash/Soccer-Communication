@@ -63,13 +63,15 @@ export const authOptions: NextAuthOptions = {
       // For database sessions
       if (user && session.user) {
         (session.user as any).id = user.id;
-        (session.user as any).emailVerified = (user as any).emailVerified;
+        (session.user as any).emailVerified = user.emailVerified;
+        (session.user as any).role = (user as any).role;
       }
 
       // For JWT sessions
       if (token && session.user) {
         (session.user as any).id = (token as any).id;
         (session.user as any).emailVerified = (token as any).emailVerified;
+        (session.user as any).role = (token as any).role;
       }
 
       return session;
@@ -78,6 +80,7 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         (token as any).id = user.id;
         (token as any).emailVerified = (user as any).emailVerified;
+        (token as any).role = (user as any).role;
       }
       return token;
     },
