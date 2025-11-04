@@ -36,8 +36,8 @@ export default function Navbar() {
                 <Link href="/messages" className="relative text-gray-700 hover:text-socal-blue">
                   Messages
                   {unread > 0 && (
-                    <span className="absolute -top-1 -right-4 min-w-[16px] px-1 h-4 text-[10px] flex items-center justify-center rounded-full bg-red-500 text-white">
-                      {unread}
+                    <span className="absolute -top-1 -right-4 flex items-center justify-center rounded-full bg-red-500 text-white text-[10px] leading-none" style={{ minWidth: '16px', height: '16px', padding: '0 4px' }}>
+                      {unread > 99 ? '99+' : unread}
                     </span>
                   )}
                 </Link>
