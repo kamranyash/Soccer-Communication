@@ -107,6 +107,25 @@ export default function PlayersPage() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Region
+                </label>
+                <select
+                  className="input-field"
+                  value={filters.region}
+                  onChange={(e) =>
+                    setFilters({ ...filters, region: e.target.value })
+                  }
+                >
+                  <option value="">All</option>
+                  <option value="Los Angeles Area">Los Angeles Area</option>
+                  <option value="Orange County">Orange County</option>
+                  <option value="Inland Empire">Inland Empire</option>
+                  <option value="San Diego County">San Diego County</option>
+                  <option value="Central Coast / Ventura">Central Coast / Ventura</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
                   Sort
                 </label>
                 <select
