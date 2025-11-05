@@ -97,6 +97,7 @@ model PlayerProfile {
   position     String?
   level        String? // ECNL, MLS Next, E64, NPL, AYSO, etc.
   ageGroup     String? // U12, U14, U16, U18, etc.
+  region       String? // Los Angeles Area, Orange County, Inland Empire, San Diego County, Central Coast / Ventura
   contactEmail String?
   contactPhone String?
   bio          String?  @db.Text
@@ -118,6 +119,7 @@ model CoachProfile {
   teamName     String?
   level        String? // ECNL, etc.
   record       String?
+  region       String? // Los Angeles Area, Orange County, Inland Empire, San Diego County, Central Coast / Ventura
   contactEmail String?
   contactPhone String?
   bio          String?  @db.Text

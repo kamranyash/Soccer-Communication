@@ -13,6 +13,7 @@ export default function SignUpPage() {
     password: '',
     confirmPassword: '',
     role: 'PLAYER' as 'PLAYER' | 'COACH',
+    region: '',
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -43,6 +44,7 @@ export default function SignUpPage() {
           email: formData.email,
           password: formData.password,
           role: formData.role,
+          region: formData.region,
         }),
       });
 
@@ -191,6 +193,44 @@ export default function SignUpPage() {
                 </label>
               </div>
             </div>
+
+            {formData.role === 'COACH' && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Region <span className="text-red-500">*</span>
+                </label>
+                <select
+                  required={formData.role === 'COACH'}
+                  className="input-field"
+                  value={formData.region}
+                  onChange={(e) =>
+                    setFormData({ ...formData, region: e.target.value })
+                  }
+                >
+                  <option value="">Select Region</option>
+                  <option value="Los Angeles Area">🟦 Los Angeles Area</option>
+                  <option value="Orange County">🟥 Orange County</option>
+                  <option value="Inland Empire">🟩 Inland Empire</option>
+                  <option value="San Diego County">🟨 San Diego County</option>
+                  <option value="Central Coast / Ventura">🟧 Central Coast / Ventura</option>
+                </select>
+                {formData.region === 'Los Angeles Area' && (
+                  <p className="text-xs text-gray-500 mt-1">Includes: West LA, South Bay, San Fernando Valley, Pasadena, Glendale, Palos Verdes</p>
+                )}
+                {formData.region === 'Orange County' && (
+                  <p className="text-xs text-gray-500 mt-1">Includes: Irvine, Anaheim, Huntington Beach, Newport Beach, Mission Viejo, Laguna Niguel</p>
+                )}
+                {formData.region === 'Inland Empire' && (
+                  <p className="text-xs text-gray-500 mt-1">Includes: Riverside, San Bernardino, Corona, Temecula, Murrieta, Redlands</p>
+                )}
+                {formData.region === 'San Diego County' && (
+                  <p className="text-xs text-gray-500 mt-1">Includes: Carlsbad, Encinitas, La Jolla, Chula Vista, Escondido</p>
+                )}
+                {formData.region === 'Central Coast / Ventura' && (
+                  <p className="text-xs text-gray-500 mt-1">Includes: Santa Barbara, Oxnard, Ventura, Thousand Oaks, Simi Valley</p>
+                )}
+              </div>
+            )}
 
             <div>
               <button

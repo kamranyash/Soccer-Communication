@@ -8,6 +8,7 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const type = searchParams.get('type');
     const level = searchParams.get('level');
+    const region = searchParams.get('region');
     const search = searchParams.get('search');
 
     const where: any = {
@@ -24,10 +25,11 @@ export async function GET(req: NextRequest) {
       where.type = type;
     }
 
-    if (level) {
+    if (level || region) {
       where.coach = {
         ...where.coach,
-        level: level,
+        ...(level && { level: level }),
+        ...(region && { region: region }),
       };
     }
 

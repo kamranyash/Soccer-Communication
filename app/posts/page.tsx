@@ -10,6 +10,7 @@ export default function PostsPage() {
   const [filters, setFilters] = useState({
     type: '',
     level: '',
+    region: '',
     search: '',
   });
 
@@ -23,6 +24,7 @@ export default function PostsPage() {
       const params = new URLSearchParams();
       if (filters.type) params.append('type', filters.type);
       if (filters.level) params.append('level', filters.level);
+      if (filters.region) params.append('region', filters.region);
       if (filters.search) params.append('search', filters.search);
 
       const res = await fetch(`/api/posts?${params}`);
@@ -51,7 +53,7 @@ export default function PostsPage() {
 
           {/* Filters */}
           <div className="card mb-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Type
@@ -84,6 +86,25 @@ export default function PostsPage() {
                   <option value="MLS Next">MLS Next</option>
                   <option value="E64">E64</option>
                   <option value="NPL">NPL</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Region
+                </label>
+                <select
+                  className="input-field"
+                  value={filters.region}
+                  onChange={(e) =>
+                    setFilters({ ...filters, region: e.target.value })
+                  }
+                >
+                  <option value="">All</option>
+                  <option value="Los Angeles Area">🟦 Los Angeles Area</option>
+                  <option value="Orange County">🟥 Orange County</option>
+                  <option value="Inland Empire">🟩 Inland Empire</option>
+                  <option value="San Diego County">🟨 San Diego County</option>
+                  <option value="Central Coast / Ventura">🟧 Central Coast / Ventura</option>
                 </select>
               </div>
               <div>

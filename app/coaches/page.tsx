@@ -9,6 +9,7 @@ export default function CoachesPage() {
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState({
     level: '',
+    region: '',
     search: '',
   });
   const [sort, setSort] = useState('newest');
@@ -22,6 +23,7 @@ export default function CoachesPage() {
     try {
       const params = new URLSearchParams();
       if (filters.level) params.append('level', filters.level);
+      if (filters.region) params.append('region', filters.region);
       if (filters.search) params.append('search', filters.search);
       params.append('sort', sort);
 
@@ -46,7 +48,7 @@ export default function CoachesPage() {
 
           {/* Filters */}
           <div className="card mb-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Search
@@ -78,6 +80,25 @@ export default function CoachesPage() {
                   <option value="E64">E64</option>
                   <option value="NPL">NPL</option>
                   <option value="AYSO">AYSO</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Region
+                </label>
+                <select
+                  className="input-field"
+                  value={filters.region}
+                  onChange={(e) =>
+                    setFilters({ ...filters, region: e.target.value })
+                  }
+                >
+                  <option value="">All</option>
+                  <option value="Los Angeles Area">🟦 Los Angeles Area</option>
+                  <option value="Orange County">🟥 Orange County</option>
+                  <option value="Inland Empire">🟩 Inland Empire</option>
+                  <option value="San Diego County">🟨 San Diego County</option>
+                  <option value="Central Coast / Ventura">🟧 Central Coast / Ventura</option>
                 </select>
               </div>
               <div>

@@ -5,6 +5,7 @@ export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
     const level = searchParams.get('level');
+    const region = searchParams.get('region');
     const search = searchParams.get('search');
     const sort = searchParams.get('sort') || 'newest';
 
@@ -17,6 +18,10 @@ export async function GET(req: NextRequest) {
 
     if (level) {
       where.level = level;
+    }
+
+    if (region) {
+      where.region = region;
     }
 
     if (search) {

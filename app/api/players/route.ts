@@ -7,6 +7,7 @@ export async function GET(req: NextRequest) {
     const ageGroup = searchParams.get('ageGroup');
     const level = searchParams.get('level');
     const position = searchParams.get('position');
+    const region = searchParams.get('region');
     const search = searchParams.get('search');
     const sort = searchParams.get('sort') || 'newest';
 
@@ -27,6 +28,10 @@ export async function GET(req: NextRequest) {
 
     if (position) {
       where.position = position;
+    }
+
+    if (region) {
+      where.region = region;
     }
 
     if (search) {

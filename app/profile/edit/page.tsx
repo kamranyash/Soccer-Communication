@@ -190,6 +190,25 @@ export default function EditProfilePage() {
                       }
                     />
                   </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Region
+                    </label>
+                    <select
+                      className="input-field"
+                      value={formData.region || ''}
+                      onChange={(e) =>
+                        setFormData({ ...formData, region: e.target.value })
+                      }
+                    >
+                      <option value="">Select Region</option>
+                      <option value="Los Angeles Area">Los Angeles Area</option>
+                      <option value="Orange County">Orange County</option>
+                      <option value="Inland Empire">Inland Empire</option>
+                      <option value="San Diego County">San Diego County</option>
+                      <option value="Central Coast / Ventura">Central Coast / Ventura</option>
+                    </select>
+                  </div>
                 </>
               ) : (
                 <>
@@ -254,6 +273,25 @@ export default function EditProfilePage() {
                         setFormData({ ...formData, record: e.target.value })
                       }
                     />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Region
+                    </label>
+                    <select
+                      className="input-field"
+                      value={formData.region || ''}
+                      onChange={(e) =>
+                        setFormData({ ...formData, region: e.target.value })
+                      }
+                    >
+                      <option value="">Select Region</option>
+                      <option value="Los Angeles Area">🟦 Los Angeles Area</option>
+                      <option value="Orange County">🟥 Orange County</option>
+                      <option value="Inland Empire">🟩 Inland Empire</option>
+                      <option value="San Diego County">🟨 San Diego County</option>
+                      <option value="Central Coast / Ventura">🟧 Central Coast / Ventura</option>
+                    </select>
                   </div>
                 </>
               )}

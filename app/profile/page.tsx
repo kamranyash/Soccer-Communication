@@ -167,15 +167,6 @@ export default function ProfilePage() {
               </Link>
             </div>
 
-            {/* Delete Account Section */}
-            <div className="mt-8 pt-6 border-t border-gray-200">
-              <h2 className="text-xl font-semibold text-red-600 mb-2">Danger Zone</h2>
-              <p className="text-sm text-gray-600 mb-4">
-                Once you delete your account, there is no going back. All your data, including your profile, messages, and posts will be permanently deleted.
-              </p>
-              <DeleteAccountButton />
-            </div>
-
             {profile && (
               <div className="space-y-4">
                 {isPlayer && (
@@ -250,6 +241,15 @@ export default function ProfilePage() {
                 )}
               </div>
             )}
+
+            {/* Delete Account Section */}
+            <div className="mt-8 pt-6 border-t border-gray-200">
+              <h2 className="text-xl font-semibold text-red-600 mb-2">Danger Zone</h2>
+              <p className="text-sm text-gray-600 mb-4">
+                Once you delete your account, there is no going back. All your data, including your profile, messages, and posts will be permanently deleted.
+              </p>
+              <DeleteAccountButton />
+            </div>
           </div>
         </div>
       </main>

@@ -8,12 +8,13 @@ const signupSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8),
   role: z.enum(['PLAYER', 'COACH']),
+  region: z.string().optional(),
 });
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { email, password, role } = signupSchema.parse(body);
+    const { email, password, role, region } = signupSchema.parse(body);
 
     // Check if user already exists
     const existingUser = await prisma.user.findUnique({
@@ -42,11 +43,11 @@ export async function POST(req: NextRequest) {
     // Create profile based on role
     if (role === 'PLAYER') {
       await prisma.playerProfile.create({
-        data: { userId: user.id },
+        data: { userId: user.id, region: region || null },
       });
     } else if (role === 'COACH') {
       await prisma.coachProfile.create({
-        data: { userId: user.id },
+        data: { userId: user.id, region: region || null },
       });
     }
 

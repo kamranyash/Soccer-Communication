@@ -11,6 +11,7 @@ export default function PlayersPage() {
     ageGroup: '',
     level: '',
     position: '',
+    region: '',
     search: '',
   });
   const [sort, setSort] = useState('newest');
@@ -26,6 +27,7 @@ export default function PlayersPage() {
       if (filters.ageGroup) params.append('ageGroup', filters.ageGroup);
       if (filters.level) params.append('level', filters.level);
       if (filters.position) params.append('position', filters.position);
+      if (filters.region) params.append('region', filters.region);
       if (filters.search) params.append('search', filters.search);
       params.append('sort', sort);
 
@@ -50,7 +52,7 @@ export default function PlayersPage() {
 
           {/* Filters */}
           <div className="card mb-6">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Search
