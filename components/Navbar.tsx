@@ -28,6 +28,9 @@ export default function Navbar() {
             <Link href="/posts" className="text-gray-700 hover:text-socal-blue">
               Tryouts & Needs
             </Link>
+            <Link href="/contact" className="text-gray-700 hover:text-socal-blue">
+              Contact
+            </Link>
 
             {status === 'loading' ? (
               <div className="animate-pulse">...</div>
