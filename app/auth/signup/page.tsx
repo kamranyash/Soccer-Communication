@@ -208,11 +208,11 @@ export default function SignUpPage() {
                   }
                 >
                   <option value="">Select Region</option>
-                  <option value="Los Angeles Area">🟦 Los Angeles Area</option>
-                  <option value="Orange County">🟥 Orange County</option>
-                  <option value="Inland Empire">🟩 Inland Empire</option>
-                  <option value="San Diego County">🟨 San Diego County</option>
-                  <option value="Central Coast / Ventura">🟧 Central Coast / Ventura</option>
+                  <option value="Los Angeles Area">Los Angeles Area</option>
+                  <option value="Orange County">Orange County</option>
+                  <option value="Inland Empire">Inland Empire</option>
+                  <option value="San Diego County">San Diego County</option>
+                  <option value="Central Coast / Ventura">Central Coast / Ventura</option>
                 </select>
                 {formData.region === 'Los Angeles Area' && (
                   <p className="text-xs text-gray-500 mt-1">Includes: West LA, South Bay, San Fernando Valley, Pasadena, Glendale, Palos Verdes</p>

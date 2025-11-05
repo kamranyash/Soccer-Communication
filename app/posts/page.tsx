@@ -100,11 +100,11 @@ export default function PostsPage() {
                   }
                 >
                   <option value="">All</option>
-                  <option value="Los Angeles Area">🟦 Los Angeles Area</option>
-                  <option value="Orange County">🟥 Orange County</option>
-                  <option value="Inland Empire">🟩 Inland Empire</option>
-                  <option value="San Diego County">🟨 San Diego County</option>
-                  <option value="Central Coast / Ventura">🟧 Central Coast / Ventura</option>
+                  <option value="Los Angeles Area">Los Angeles Area</option>
+                  <option value="Orange County">Orange County</option>
+                  <option value="Inland Empire">Inland Empire</option>
+                  <option value="San Diego County">San Diego County</option>
+                  <option value="Central Coast / Ventura">Central Coast / Ventura</option>
                 </select>
               </div>
               <div>
