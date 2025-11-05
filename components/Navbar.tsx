@@ -14,7 +14,7 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="flex items-center">
             <span className="text-2xl font-bold text-socal-blue">
-              SoCal <span className="text-socal-red">OpenRoster</span>
+              SoCal <span className="text-socal-red">Open Roster</span>
             </span>
           </Link>
 
