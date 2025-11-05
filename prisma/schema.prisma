@@ -163,6 +163,7 @@ model Post {
   description String    @db.Text
   date        DateTime?
   location    String?
+  region      String?   // Los Angeles Area, Orange County, Inland Empire, San Diego County, Central Coast / Ventura
   needs       String?   @db.Text // Specific player needs/requirements
   status      String    @default("active")
   createdAt   DateTime  @default(now())

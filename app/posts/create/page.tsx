@@ -15,6 +15,7 @@ export default function CreatePostPage() {
     description: '',
     date: '',
     location: '',
+    region: '',
     needs: '',
   });
 
@@ -135,6 +136,27 @@ export default function CreatePostPage() {
                     setFormData({ ...formData, location: e.target.value })
                   }
                 />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Region <span className="text-red-500">*</span>
+                </label>
+                <select
+                  required
+                  className="input-field"
+                  value={formData.region}
+                  onChange={(e) =>
+                    setFormData({ ...formData, region: e.target.value })
+                  }
+                >
+                  <option value="">Select Region</option>
+                  <option value="Los Angeles Area">Los Angeles Area</option>
+                  <option value="Orange County">Orange County</option>
+                  <option value="Inland Empire">Inland Empire</option>
+                  <option value="San Diego County">San Diego County</option>
+                  <option value="Central Coast / Ventura">Central Coast / Ventura</option>
+                </select>
               </div>
 
               <div>

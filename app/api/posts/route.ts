@@ -25,12 +25,15 @@ export async function GET(req: NextRequest) {
       where.type = type;
     }
 
-    if (level || region) {
+    if (level) {
       where.coach = {
         ...where.coach,
-        ...(level && { level: level }),
-        ...(region && { region: region }),
+        level: level,
       };
+    }
+
+    if (region) {
+      where.region = region;
     }
 
     if (search) {
@@ -83,7 +86,7 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
-    const { type, title, description, date, location, needs } = body;
+    const { type, title, description, date, location, region, needs } = body;
 
     const coachProfile = await prisma.coachProfile.findUnique({
       where: { userId: session.user.id },
@@ -104,6 +107,7 @@ export async function POST(req: NextRequest) {
         description,
         date: date ? new Date(date) : null,
         location,
+        region,
         needs,
       },
     });
