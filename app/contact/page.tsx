@@ -143,8 +143,8 @@ export default function ContactPage() {
               <div>
                 <h3 className="font-semibold text-gray-700">Email</h3>
                 <p className="text-gray-600">
-                  <a href="mailto:socalopenroster@socal-or.org" className="text-socal-blue hover:underline">
-                    socalopenroster@socal-or.org
+                  <a href="mailto:support@socal-or.org" className="text-socal-blue hover:underline">
+                    support@socal-or.org
                   </a>
                 </p>
               </div>

@@ -30,10 +30,10 @@ export async function POST(req: NextRequest) {
 
     const resend = new Resend(process.env.RESEND_API_KEY);
 
-    // Send email to socalopenroster@socal-or.org
+    // Send email to support@socal-or.org
     const result = await resend.emails.send({
       from: process.env.EMAIL_FROM!,
-      to: 'socalopenroster@socal-or.org',
+      to: 'support@socal-or.org',
       replyTo: email,
       subject: `Contact Form: ${subject}`,
       html: `
