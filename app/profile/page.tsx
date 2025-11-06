@@ -73,11 +73,11 @@ function DeleteAccountButton() {
           {error}
         </div>
       )}
-      <div className="flex gap-3">
+      <div className="flex flex-col sm:flex-row gap-3">
         <button
           onClick={handleDelete}
           disabled={loading || confirmText !== 'DELETE'}
-          className="btn-primary bg-red-600 hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="btn-primary bg-red-600 hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
         >
           {loading ? 'Deleting...' : 'Yes, Delete My Account'}
         </button>
@@ -88,7 +88,7 @@ function DeleteAccountButton() {
             setError('');
           }}
           disabled={loading}
-          className="btn-outline"
+          className="btn-outline w-full sm:w-auto"
         >
           Cancel
         </button>
@@ -153,16 +153,16 @@ export default function ProfilePage() {
       <main className="min-h-screen bg-gray-50 py-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="card mb-6">
-            <h1 className="text-2xl font-bold mb-4">My Profile</h1>
+            <h1 className="text-xl sm:text-2xl font-bold mb-4">My Profile</h1>
             
             {!session.user.emailVerified && (
-              <div className="bg-yellow-50 border border-yellow-200 text-yellow-800 px-4 py-3 rounded mb-4">
+              <div className="bg-yellow-50 border border-yellow-200 text-yellow-800 px-4 py-3 rounded mb-4 text-sm">
                 Please verify your email to make your profile visible and unlock messaging.
               </div>
             )}
 
             <div className="mb-4 flex gap-4">
-              <Link href={`/profile/edit`} className="btn-primary">
+              <Link href={`/profile/edit`} className="btn-primary w-full sm:w-auto text-center">
                 Edit Profile
               </Link>
             </div>
@@ -244,7 +244,7 @@ export default function ProfilePage() {
 
             {/* Delete Account Section */}
             <div className="mt-8 pt-6 border-t border-gray-200">
-              <h2 className="text-xl font-semibold text-red-600 mb-2">Danger Zone</h2>
+              <h2 className="text-lg sm:text-xl font-semibold text-red-600 mb-2">Danger Zone</h2>
               <p className="text-sm text-gray-600 mb-4">
                 Once you delete your account, there is no going back. All your data, including your profile, messages, and posts will be permanently deleted.
               </p>

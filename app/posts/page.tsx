@@ -44,9 +44,9 @@ export default function PostsPage() {
       <Navbar />
       <main className="min-h-screen bg-gray-50 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center mb-6">
-            <h1 className="text-3xl font-bold">Tryouts & Guest Player Needs</h1>
-            <Link href="/posts/create" className="btn-primary">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+            <h1 className="text-2xl sm:text-3xl font-bold">Tryouts & Guest Player Needs</h1>
+            <Link href="/posts/create" className="btn-primary w-full sm:w-auto text-center">
               Create Post
             </Link>
           </div>

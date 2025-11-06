@@ -8,6 +8,7 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'SoCal OpenRoster - Connect Players & Coaches',
   description: 'Connect Southern California club players and coaches',
+  viewport: 'width=device-width, initial-scale=1',
 };
 
 export default function RootLayout({

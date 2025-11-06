@@ -64,7 +64,7 @@ export default function EditProfilePage() {
       <main className="min-h-screen bg-gray-50 py-8">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="card">
-            <h1 className="text-2xl font-bold mb-6">Edit Profile</h1>
+            <h1 className="text-xl sm:text-2xl font-bold mb-6">Edit Profile</h1>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Profile Photo */}
@@ -97,7 +97,7 @@ export default function EditProfilePage() {
                   />
                 )}
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     First Name
@@ -338,7 +338,7 @@ export default function EditProfilePage() {
                 />
               </div>
 
-              <div className="flex gap-4">
+              <div className="flex flex-col sm:flex-row gap-4">
                 <button
                   type="submit"
                   disabled={loading}

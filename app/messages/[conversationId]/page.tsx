@@ -103,7 +103,7 @@ export default function ConversationPage() {
               ← Back to Messages
             </button>
 
-            <div className="border rounded-lg p-4 h-96 overflow-y-auto mb-4 bg-white">
+            <div className="border rounded-lg p-4 h-64 sm:h-96 overflow-y-auto mb-4 bg-white">
               {messages.length === 0 ? (
                 <div className="text-center text-gray-500 py-8">
                   No messages yet. Start the conversation!
@@ -141,7 +141,7 @@ export default function ConversationPage() {
               )}
             </div>
 
-            <form onSubmit={handleSend} className="flex gap-2">
+            <form onSubmit={handleSend} className="flex flex-col sm:flex-row gap-2">
               <input
                 type="text"
                 value={newMessage}
@@ -152,7 +152,7 @@ export default function ConversationPage() {
               <button
                 type="submit"
                 disabled={sending || !newMessage.trim()}
-                className="btn-primary disabled:opacity-50"
+                className="btn-primary disabled:opacity-50 w-full sm:w-auto"
               >
                 {sending ? 'Sending...' : 'Send'}
               </button>
