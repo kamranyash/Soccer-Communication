@@ -296,57 +296,58 @@ export default function EditProfilePage() {
                 </>
               )}
 
-              {/* Highlight Videos */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Highlight Videos
-                </label>
-                <p className="text-xs text-gray-500 mb-2">
-                  Upload short clips of your playstyle (MP4 or similar). These will appear on your
-                  public profile.
-                </p>
-                <input
-                  type="file"
-                  accept="video/*"
-                  onChange={async (e) => {
-                    if (!e.target.files?.[0]) return;
-                    const form = new FormData();
-                    form.append('file', e.target.files[0]);
+              {isPlayer && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Highlight Videos
+                  </label>
+                  <p className="text-xs text-gray-500 mb-2">
+                    Upload short clips of your playstyle (MP4 or similar). These will appear on your
+                    public profile.
+                  </p>
+                  <input
+                    type="file"
+                    accept="video/*"
+                    onChange={async (e) => {
+                      if (!e.target.files?.[0]) return;
+                      const form = new FormData();
+                      form.append('file', e.target.files[0]);
 
-                    const res = await fetch('/api/upload/profile-video', {
-                      method: 'POST',
-                      body: form,
-                    });
+                      const res = await fetch('/api/upload/profile-video', {
+                        method: 'POST',
+                        body: form,
+                      });
 
-                    if (res.ok) {
-                      const { url } = await res.json();
-                      setFormData((prev: any) => ({
-                        ...prev,
-                        media: [
-                          ...(prev.media || []),
-                          { id: url, type: 'VIDEO', url },
-                        ],
-                      }));
-                    }
-                  }}
-                />
+                      if (res.ok) {
+                        const { url } = await res.json();
+                        setFormData((prev: any) => ({
+                          ...prev,
+                          media: [
+                            ...(prev.media || []),
+                            { id: url, type: 'VIDEO', url },
+                          ],
+                        }));
+                      }
+                    }}
+                  />
 
-                {formData.media && formData.media.length > 0 && (
-                  <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {formData.media
-                      .filter((m: any) => m.type === 'VIDEO')
-                      .map((m: any) => (
-                        <div key={m.id} className="border rounded-lg p-2 bg-black">
-                          <video
-                            src={m.url}
-                            controls
-                            className="w-full h-40 object-cover rounded"
-                          />
-                        </div>
-                      ))}
-                  </div>
-                )}
-              </div>
+                  {formData.media && formData.media.length > 0 && (
+                    <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {formData.media
+                        .filter((m: any) => m.type === 'VIDEO')
+                        .map((m: any) => (
+                          <div key={m.id} className="border rounded-lg p-2 bg-black">
+                            <video
+                              src={m.url}
+                              controls
+                              className="w-full h-40 object-cover rounded"
+                            />
+                          </div>
+                        ))}
+                    </div>
+                  )}
+                </div>
+              )}
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">

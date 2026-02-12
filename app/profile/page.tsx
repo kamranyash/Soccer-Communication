@@ -153,8 +153,11 @@ export default function ProfilePage() {
       <main className="min-h-screen bg-gray-50 py-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="card mb-6">
-            <h1 className="text-xl sm:text-2xl font-bold mb-4">My Profile</h1>
-            
+            <h1 className="text-xl sm:text-2xl font-bold mb-2">My Profile</h1>
+            <p className="text-sm text-gray-600 mb-4">
+              {isPlayer ? 'Player Profile' : isCoach ? 'Coach Profile' : 'Visitor Profile'}
+            </p>
+
             {!session.user.emailVerified && (
               <div className="bg-yellow-50 border border-yellow-200 text-yellow-800 px-4 py-3 rounded mb-4 text-sm">
                 Please verify your email to make your profile visible and unlock messaging.
