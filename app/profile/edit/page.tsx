@@ -313,13 +313,21 @@ export default function EditProfilePage() {
                       const form = new FormData();
                       form.append('file', e.target.files[0]);
 
-                      const res = await fetch('/api/upload/profile-video', {
-                        method: 'POST',
-                        body: form,
-                      });
+                      try {
+                        const res = await fetch('/api/upload/profile-video', {
+                          method: 'POST',
+                          body: form,
+                        });
 
-                      if (res.ok) {
-                        const { url } = await res.json();
+                        const data = await res.json();
+
+                        if (!res.ok) {
+                          console.error('Video upload failed:', data);
+                          alert(data.error || 'Failed to upload video');
+                          return;
+                        }
+
+                        const { url } = data;
                         setFormData((prev: any) => ({
                           ...prev,
                           media: [
@@ -327,6 +335,9 @@ export default function EditProfilePage() {
                             { id: url, type: 'VIDEO', url },
                           ],
                         }));
+                      } catch (err) {
+                        console.error('Video upload error:', err);
+                        alert('Network error while uploading video');
                       }
                     }}
                   />

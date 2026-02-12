@@ -56,18 +56,23 @@ export async function POST(req: NextRequest) {
       select: { id: true },
     });
 
-    if (profile) {
-      await prisma.mediaAsset.create({
-        data: {
-          userId,
-          playerProfileId: profile.id,
-          type: 'VIDEO',
-          url: uploadRes.secure_url,
-          caption: caption || null,
-          profileType: 'player',
-        },
-      });
+    if (!profile) {
+      return NextResponse.json(
+        { error: 'Player profile not found for this user' },
+        { status: 404 },
+      );
     }
+
+    await prisma.mediaAsset.create({
+      data: {
+        userId,
+        playerProfileId: profile.id,
+        type: 'VIDEO',
+        url: uploadRes.secure_url,
+        caption: caption || null,
+        profileType: 'player',
+      },
+    });
 
     return NextResponse.json({ url: uploadRes.secure_url });
   } catch (error) {
