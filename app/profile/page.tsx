@@ -213,7 +213,9 @@ export default function ProfilePage() {
                   <>
                     <div>
                       <h3 className="font-semibold">Name</h3>
-                      <p>{profile.firstName} {profile.lastName}</p>
+                      <p>
+                        {profile.firstName} {profile.lastName}
+                      </p>
                     </div>
                     <div>
                       <h3 className="font-semibold">Club</h3>
@@ -238,6 +240,28 @@ export default function ProfilePage() {
                       </div>
                     )}
                   </>
+                )}
+
+                {profile.media && profile.media.length > 0 && (
+                  <div className="mt-6">
+                    <h3 className="font-semibold mb-3">Highlight Videos</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {profile.media
+                        .filter((m: any) => m.type === 'VIDEO')
+                        .map((m: any) => (
+                          <div key={m.id} className="border rounded-lg p-2 bg-black">
+                            <video
+                              src={m.url}
+                              controls
+                              className="w-full h-48 object-cover rounded"
+                            />
+                            {m.caption && (
+                              <p className="mt-1 text-xs text-gray-200">{m.caption}</p>
+                            )}
+                          </div>
+                        ))}
+                    </div>
+                  </div>
                 )}
               </div>
             )}

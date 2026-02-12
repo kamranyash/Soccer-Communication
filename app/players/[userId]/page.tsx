@@ -149,13 +149,21 @@ export default function PlayerProfilePage() {
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {profile.media.map((media: any) => (
                     <div key={media.id}>
-                      {media.type === 'IMAGE' ? (
+                      {media.type === 'IMAGE' && (
                         <img
                           src={media.url}
                           alt={media.caption || 'Media'}
                           className="w-full h-48 object-cover rounded-lg"
                         />
-                      ) : (
+                      )}
+                      {media.type === 'VIDEO' && (
+                        <video
+                          src={media.url}
+                          controls
+                          className="w-full h-48 object-cover rounded-lg bg-black"
+                        />
+                      )}
+                      {media.type === 'LINK' && (
                         <a
                           href={media.url}
                           target="_blank"
