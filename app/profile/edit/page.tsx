@@ -309,11 +309,68 @@ export default function EditProfilePage() {
                     type="file"
                     accept="video/*"
                     onChange={async (e) => {
-                      if (!e.target.files?.[0]) return;
-                      const form = new FormData();
-                      form.append('file', e.target.files[0]);
+                      const file = e.target.files?.[0];
+                      if (!file) return;
 
+                      // Try direct upload to Cloudinary using unsigned preset
                       try {
+                        const configRes = await fetch('/api/upload/profile-video/config');
+                        const configData = await configRes.json();
+
+                        if (configRes.ok && configData.cloudName && configData.uploadPreset) {
+                          const cloudinaryForm = new FormData();
+                          cloudinaryForm.append('file', file);
+                          cloudinaryForm.append('upload_preset', configData.uploadPreset);
+                          cloudinaryForm.append('folder', 'profile-videos');
+
+                          const uploadRes = await fetch(
+                            `https://api.cloudinary.com/v1_1/${configData.cloudName}/video/upload`,
+                            {
+                              method: 'POST',
+                              body: cloudinaryForm,
+                            },
+                          );
+
+                          const uploadData = await uploadRes.json();
+                          if (!uploadRes.ok) {
+                            console.error('Cloudinary upload failed:', uploadData);
+                            alert(uploadData.error?.message || 'Failed to upload video');
+                            return;
+                          }
+
+                          const saveRes = await fetch('/api/upload/profile-video', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ url: uploadData.secure_url }),
+                          });
+
+                          const saveData = await saveRes.json();
+                          if (!saveRes.ok) {
+                            console.error('Saving video failed:', saveData);
+                            alert(saveData.error || 'Failed to save video');
+                            return;
+                          }
+
+                          const { url } = saveData;
+                          setFormData((prev: any) => ({
+                            ...prev,
+                            media: [
+                              ...(prev.media || []),
+                              { id: url, type: 'VIDEO', url },
+                            ],
+                          }));
+                          e.target.value = '';
+                          return;
+                        }
+                      } catch (err) {
+                        console.error('Direct Cloudinary upload failed, falling back:', err);
+                      }
+
+                      // Fallback: upload through our API (may be limited by server size)
+                      try {
+                        const form = new FormData();
+                        form.append('file', file);
+
                         const res = await fetch('/api/upload/profile-video', {
                           method: 'POST',
                           body: form,
@@ -335,6 +392,7 @@ export default function EditProfilePage() {
                             { id: url, type: 'VIDEO', url },
                           ],
                         }));
+                        e.target.value = '';
                       } catch (err) {
                         console.error('Video upload error:', err);
                         alert('Network error while uploading video');

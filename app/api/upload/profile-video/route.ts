@@ -24,30 +24,62 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const form = await req.formData();
-    const file = form.get('file') as File | null;
-    const caption = form.get('caption') as string | null;
+    const contentType = req.headers.get('content-type') || '';
 
-    if (!file) {
-      return NextResponse.json({ error: 'No file provided' }, { status: 400 });
+    let videoUrl: string | null = null;
+    let caption: string | null = null;
+
+    if (contentType.includes('application/json')) {
+      // Client already uploaded to Cloudinary and is sending us the URL
+      const body = await req.json();
+      videoUrl = body.url ?? null;
+      caption = body.caption ?? null;
+
+      if (!videoUrl || typeof videoUrl !== 'string') {
+        return NextResponse.json({ error: 'Video URL is required' }, { status: 400 });
+      }
+
+      const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
+      if (!cloudName || !videoUrl.includes(`res.cloudinary.com/${cloudName}`)) {
+        return NextResponse.json({ error: 'Invalid video URL' }, { status: 400 });
+      }
+    } else {
+      // Fallback: server-side upload (may be limited by function body size)
+      const form = await req.formData();
+      const file = form.get('file') as File | null;
+      caption = (form.get('caption') as string | null) ?? null;
+
+      if (!file) {
+        return NextResponse.json({ error: 'No file provided' }, { status: 400 });
+      }
+
+      const maxBytes = 4 * 1024 * 1024; // ~4MB safety limit for serverless body size
+      if (file.size > maxBytes) {
+        return NextResponse.json(
+          { error: 'Video is too large to upload via server. Please use a smaller file.' },
+          { status: 413 },
+        );
+      }
+
+      const arrayBuffer = await file.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+
+      const uploadRes = await new Promise<any>((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          {
+            folder: 'profile-videos',
+            resource_type: 'video',
+          },
+          (err, result) => {
+            if (err) return reject(err);
+            resolve(result!);
+          },
+        );
+        stream.end(buffer);
+      });
+
+      videoUrl = uploadRes.secure_url;
     }
-
-    const arrayBuffer = await file.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
-
-    const uploadRes = await new Promise<any>((resolve, reject) => {
-      const stream = cloudinary.uploader.upload_stream(
-        {
-          folder: 'profile-videos',
-          resource_type: 'video',
-        },
-        (err, result) => {
-          if (err) return reject(err);
-          resolve(result!);
-        },
-      );
-      stream.end(buffer);
-    });
 
     const userId = session.user.id;
 
@@ -68,13 +100,13 @@ export async function POST(req: NextRequest) {
         userId,
         playerProfileId: profile.id,
         type: 'VIDEO',
-        url: uploadRes.secure_url,
+        url: videoUrl!,
         caption: caption || null,
         profileType: 'player',
       },
     });
 
-    return NextResponse.json({ url: uploadRes.secure_url });
+    return NextResponse.json({ url: videoUrl });
   } catch (error) {
     console.error('Video upload error:', error);
     return NextResponse.json({ error: 'Failed to upload video' }, { status: 500 });
