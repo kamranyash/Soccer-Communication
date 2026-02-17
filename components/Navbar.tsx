@@ -31,6 +31,11 @@ export default function Navbar() {
             <Link href="/posts" className="text-gray-700 hover:text-socal-blue">
               Tryouts & Needs
             </Link>
+            {session?.user?.role === 'COACH' && (
+              <Link href="/posts/my-posts" className="text-gray-700 hover:text-socal-blue">
+                My Postings
+              </Link>
+            )}
             <Link href="/contact" className="text-gray-700 hover:text-socal-blue">
               Contact
             </Link>
@@ -117,6 +122,15 @@ export default function Navbar() {
             >
               Tryouts & Needs
             </Link>
+            {session?.user?.role === 'COACH' && (
+              <Link
+                href="/posts/my-posts"
+                className="block px-2 py-2 text-gray-700 hover:text-socal-blue hover:bg-gray-50 rounded"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                My Postings
+              </Link>
+            )}
             <Link
               href="/contact"
               className="block px-2 py-2 text-gray-700 hover:text-socal-blue hover:bg-gray-50 rounded"

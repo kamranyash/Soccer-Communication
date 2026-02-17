@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 import Navbar from '@/components/Navbar';
 
 export default function PostsPage() {
+  const { data: session } = useSession();
   const [posts, setPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState({
@@ -46,9 +48,18 @@ export default function PostsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
             <h1 className="text-2xl sm:text-3xl font-bold">Tryouts & Guest Player Needs</h1>
-            <Link href="/posts/create" className="btn-primary w-full sm:w-auto text-center">
-              Create Post
-            </Link>
+            <div className="flex flex-wrap gap-3 w-full sm:w-auto">
+              {session?.user?.role === 'COACH' && (
+                <Link href="/posts/my-posts" className="btn-outline flex-1 sm:flex-initial text-center">
+                  My Postings
+                </Link>
+              )}
+              {session?.user?.role === 'COACH' && (
+                <Link href="/posts/create" className="btn-primary flex-1 sm:flex-initial text-center">
+                  Create Post
+                </Link>
+              )}
+            </div>
           </div>
 
           {/* Filters */}
