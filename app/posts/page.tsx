@@ -55,7 +55,7 @@ export default function PostsPage() {
                 </Link>
               )}
               {session?.user?.role === 'COACH' && (
-                <Link href="/posts/create" className="btn-primary flex-1 sm:flex-initial text-center">
+                <Link href="/posts/create" className="btn-outline flex-1 sm:flex-initial text-center">
                   Create Post
                 </Link>
               )}

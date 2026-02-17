@@ -92,7 +92,7 @@ export default function MyPostsPage() {
               >
                 Refresh
               </button>
-              <Link href="/posts/create" className="btn-primary">
+              <Link href="/posts/create" className="btn-outline">
                 Create Post
               </Link>
             </div>
