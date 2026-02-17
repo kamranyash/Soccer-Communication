@@ -165,7 +165,7 @@ export default function ProfilePage() {
             )}
 
             <div className="mb-4 flex flex-wrap gap-4">
-              <Link href={`/profile/edit`} className="btn-primary w-full sm:w-auto text-center">
+              <Link href={`/profile/edit`} className="btn-outline w-full sm:w-auto text-center">
                 Edit Profile
               </Link>
               {isCoach && (
