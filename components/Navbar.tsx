@@ -21,17 +21,17 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Link href="/players" className="text-gray-700 hover:text-socal-blue">
+          <div className="hidden md:flex items-center space-x-1">
+            <Link href="/players" className="px-3 py-2 rounded-md text-gray-700 hover:text-socal-blue hover:bg-gray-100 transition-colors">
               Players
             </Link>
-            <Link href="/coaches" className="text-gray-700 hover:text-socal-blue">
+            <Link href="/coaches" className="px-3 py-2 rounded-md text-gray-700 hover:text-socal-blue hover:bg-gray-100 transition-colors">
               Coaches
             </Link>
-            <Link href="/posts" className="text-gray-700 hover:text-socal-blue">
+            <Link href="/posts" className="px-3 py-2 rounded-md text-gray-700 hover:text-socal-blue hover:bg-gray-100 transition-colors">
               Tryouts & Needs
             </Link>
-            <Link href="/contact" className="text-gray-700 hover:text-socal-blue">
+            <Link href="/contact" className="px-3 py-2 rounded-md text-gray-700 hover:text-socal-blue hover:bg-gray-100 transition-colors">
               Contact
             </Link>
 
@@ -39,7 +39,7 @@ export default function Navbar() {
               <div className="animate-pulse">...</div>
             ) : session ? (
               <>
-                <Link href="/messages" className="relative text-gray-700 hover:text-socal-blue">
+                <Link href="/messages" className="relative px-3 py-2 rounded-md text-gray-700 hover:text-socal-blue hover:bg-gray-100 transition-colors">
                   Messages
                   {unread > 0 && (
                     <span className="absolute -top-1 -right-4 flex items-center justify-center rounded-full bg-red-500 text-white text-[10px] leading-none" style={{ minWidth: '16px', height: '16px', padding: '0 4px' }}>
@@ -47,12 +47,12 @@ export default function Navbar() {
                     </span>
                   )}
                 </Link>
-                <Link href="/profile" className="text-gray-700 hover:text-socal-blue">
+                <Link href="/profile" className="px-3 py-2 rounded-md text-gray-700 hover:text-socal-blue hover:bg-gray-100 transition-colors">
                   Profile
                 </Link>
                 <button
                   onClick={() => signOut()}
-                  className="text-gray-700 hover:text-socal-red"
+                  className="px-3 py-2 rounded-md text-gray-700 hover:text-socal-red hover:bg-gray-100 transition-colors"
                 >
                   Sign Out
                 </button>
